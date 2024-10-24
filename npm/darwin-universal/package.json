@@ -1,0 +1,15 @@
+{
+  "name": "@dylo/encoding-darwin-universal",
+  "version": "0.0.0",
+  "os": [
+    "darwin"
+  ],
+  "main": "encoding.darwin-universal.node",
+  "files": [
+    "encoding.darwin-universal.node"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10"
+  }
+}
