@@ -1,15 +1,29 @@
 #![deny(clippy::all)]
 
+use std::collections::HashMap;
 #[macro_use]
 extern crate napi_derive;
+#[macro_use]
+extern crate lazy_static;
 
-fn hex_char_to_dec(c: char) -> Option<u8> {
-  match c {
-    '0'..='9' => Some(c as u8 - '0' as u8),
-    'a'..='f' => Some(c as u8 - 'a' as u8 + 10),
-    'A'..='F' => Some(c as u8 - 'A' as u8 + 10),
-    _ => None,
-  }
+lazy_static! {
+  static ref HEX_TO_DEC: HashMap<char, u8> = {
+    let mut m = HashMap::new();
+
+    for i in 0..=9 {
+      m.insert(char::from_digit(i, 10).unwrap(), i as u8);
+    }
+
+    for i in 0..=5 {
+      m.insert((b'a' + i) as char, 10 + i as u8);
+    }
+
+    for i in 0..=5 {
+      m.insert((b'A' + i) as char, 10 + i as u8);
+    }
+
+    m
+  };
 }
 
 #[napi]
@@ -22,12 +36,14 @@ pub fn decode_hex(hex: String) -> Result<String, napi::Error> {
   let chars: Vec<char> = hex.chars().collect();
 
   for i in (0..chars.len()).step_by(2) {
-    let high =
-      hex_char_to_dec(chars[i]).ok_or_else(|| napi::Error::from_reason("Invalid hex digit"))?;
-    let low =
-      hex_char_to_dec(chars[i + 1]).ok_or_else(|| napi::Error::from_reason("Invalid hex digit"))?;
+    let high = HEX_TO_DEC
+      .get(&chars[i])
+      .ok_or_else(|| napi::Error::from_reason("Invalid hex digit"))?;
+    let low = HEX_TO_DEC
+      .get(&chars[i + 1])
+      .ok_or_else(|| napi::Error::from_reason("Invalid hex digit"))?;
 
-    let byte = (high << 4) | low;
+    let byte: u8 = (high << 4) | low;
     result.push(byte as char);
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "@dylo/encoding",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "types": "index.d.ts",
   "napi": {
@@ -42,6 +42,7 @@
   },
   "scripts": {
     "artifacts": "napi artifacts",
+    "benchmarks": "node benchmarks/benchmarks.js",
     "build": "napi build --platform --release",
     "build:debug": "napi build --platform",
     "prepublishOnly": "napi prepublish -t npm",

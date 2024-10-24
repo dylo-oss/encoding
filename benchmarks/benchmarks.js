@@ -39,13 +39,10 @@ const small = '4d61';
 const testCases = [
   { iterations: 1000000, warmup: 100, description: 'Small numbers, high iterations', hex: large },
   { iterations: 1000000, warmup: 100, description: 'Hundreds, high iterations', hex: small },
-  { iterations: 1000000, warmup: 100, description: 'Thousands, high iterations', hex: large },
   { iterations: 10000, warmup: 10, description: 'Small numbers, low iterations', hex: large },
   { iterations: 10000, warmup: 10, description: 'Hundreds, low iterations', hex: small },
-  { iterations: 10000, warmup: 10, description: 'Thousands, low iterations', hex: large },
   { iterations: 1000000, warmup: 0, description: 'No warmup, small numbers', hex: large },
   { iterations: 1000000, warmup: 0, description: 'No warmup, hundreds', hex: small },
-  { iterations: 1000000, warmup: 0, description: 'No warmup, thousands', hex: large },
 ];
 
 const results = [];
@@ -57,14 +54,13 @@ for (const { hex, iterations, warmup: warmupIterations, description } of testCas
   }
   const nativeDuration = benchmark(decodeHex, hex, iterations);
   const packageDuration = benchmark(decodeHexJS, hex, iterations);
-  const difference = nativeDuration - packageDuration;
   results.push({
     input: `${hex}`,
-    native: nativeDuration,
-    package: packageDuration,
-    difference,
+    rust: nativeDuration,
+    js: packageDuration,
+    percentage: ((nativeDuration - packageDuration) / packageDuration) * 100,
     description,
   });
 }
 
-console.table(results, ['input', 'native', 'package', 'difference', 'description']);
+console.table(results, ['input', 'rust', 'js', 'percentage', 'description']);
