@@ -36,7 +36,7 @@ pub fn decode_hex(hex: String) -> Result<String, napi::Error> {
 
 #[napi]
 pub fn encode_hex_upper_case(hex: String) -> String {
-  let mut result = String::new();
+  let mut result: String = String::new();
   for c in hex.chars() {
     result.push(match c {
       'a'..='f' => (c as u8 - b'a' + b'A') as char,
@@ -48,7 +48,7 @@ pub fn encode_hex_upper_case(hex: String) -> String {
 
 #[napi]
 pub fn encode_hex_lower_case(hex: String) -> String {
-  let mut result = String::new();
+  let mut result: String = String::new();
   for c in hex.chars() {
     result.push(match c {
       'A'..='F' => (c as u8 - b'A' + b'a') as char,
