@@ -14,5 +14,11 @@
   "license": "MIT",
   "engines": {
     "node": ">= 10"
-  }
+  },
+  "author": "Shubham Singh<shubh622005@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dylo-oss/encoding"
+  },
+  "readme": "A simple Node-JS package made using rust binaries"
 }
