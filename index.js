@@ -310,9 +310,8 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-const { hexToString, stringToHex, toUppercaseHex, toLowercaseHex } = nativeBinding
+const { decodeHex, encodeHexUpperCase, encodeHexLowerCase } = nativeBinding
 
-module.exports.hexToString = hexToString
-module.exports.stringToHex = stringToHex
-module.exports.toUppercaseHex = toUppercaseHex
-module.exports.toLowercaseHex = toLowercaseHex
+module.exports.decodeHex = decodeHex
+module.exports.encodeHexUpperCase = encodeHexUpperCase
+module.exports.encodeHexLowerCase = encodeHexLowerCase

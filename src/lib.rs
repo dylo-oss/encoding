@@ -13,7 +13,7 @@ fn hex_char_to_dec(c: char) -> Option<u8> {
 }
 
 #[napi]
-pub fn hex_to_string(hex: String) -> Result<String, napi::Error> {
+pub fn decode_hex(hex: String) -> Result<String, napi::Error> {
   if hex.len() % 2 != 0 {
     return Err(napi::Error::from_reason("Invalid hex string"));
   }
@@ -34,31 +34,8 @@ pub fn hex_to_string(hex: String) -> Result<String, napi::Error> {
   Ok(result)
 }
 
-fn dec_to_hex_char(val: u8) -> char {
-  match val {
-    0..=9 => (val + b'0') as char,
-    10..=15 => (val + b'a' - 10) as char,
-    _ => panic!("Invalid decimal value"),
-  }
-}
-
-fn byte_to_hex(byte: u8) -> String {
-  let high = (byte >> 4) & 0xF;
-  let low = byte & 0xF;
-  format!("{}{}", dec_to_hex_char(high), dec_to_hex_char(low))
-}
-
 #[napi]
-pub fn string_to_hex(s: String) -> String {
-  let mut hex: String = String::new();
-  for byte in s.bytes() {
-    hex.push_str(&byte_to_hex(byte));
-  }
-  hex
-}
-
-#[napi]
-pub fn to_uppercase_hex(hex: String) -> String {
+pub fn encode_hex_upper_case(hex: String) -> String {
   let mut result = String::new();
   for c in hex.chars() {
     result.push(match c {
@@ -70,7 +47,7 @@ pub fn to_uppercase_hex(hex: String) -> String {
 }
 
 #[napi]
-pub fn to_lowercase_hex(hex: String) -> String {
+pub fn encode_hex_lower_case(hex: String) -> String {
   let mut result = String::new();
   for c in hex.chars() {
     result.push(match c {
