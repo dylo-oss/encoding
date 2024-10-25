@@ -9,6 +9,12 @@ export declare function encodeBase32LowercaseNoPadding(input: Uint8Array): strin
 export declare function encodeBase32UppercaseNoPadding(input: Uint8Array): string
 export declare function decodeBase32(input: string): Array<number>
 export declare function decodeBase32IgnorePadding(input: string): Array<number>
+export declare function encodeBase64Standard(input: Uint8Array): string
+export declare function encodeBase64Url(input: Uint8Array): string
+export declare function encodeBase64StandardNoPadding(input: Uint8Array): string
+export declare function encodeBase64UrlNoPadding(input: Uint8Array): string
+export declare function decodeBase64(input: string): Array<number>
+export declare function decodeBase64IgnorePadding(input: string): Array<number>
 export declare function decodeHex(hex: string): string
 export declare function encodeHexUpperCase(hex: string): string
 export declare function encodeHexLowerCase(hex: string): string

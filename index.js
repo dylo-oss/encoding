@@ -310,7 +310,7 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-const { encodeBase32Uppercase, encodeBase32Lowercase, encodeBase32LowercaseNoPadding, encodeBase32UppercaseNoPadding, decodeBase32, decodeBase32IgnorePadding, decodeHex, encodeHexUpperCase, encodeHexLowerCase } = nativeBinding
+const { encodeBase32Uppercase, encodeBase32Lowercase, encodeBase32LowercaseNoPadding, encodeBase32UppercaseNoPadding, decodeBase32, decodeBase32IgnorePadding, encodeBase64Standard, encodeBase64Url, encodeBase64StandardNoPadding, encodeBase64UrlNoPadding, decodeBase64, decodeBase64IgnorePadding, decodeHex, encodeHexUpperCase, encodeHexLowerCase } = nativeBinding
 
 module.exports.encodeBase32Uppercase = encodeBase32Uppercase
 module.exports.encodeBase32Lowercase = encodeBase32Lowercase
@@ -318,6 +318,12 @@ module.exports.encodeBase32LowercaseNoPadding = encodeBase32LowercaseNoPadding
 module.exports.encodeBase32UppercaseNoPadding = encodeBase32UppercaseNoPadding
 module.exports.decodeBase32 = decodeBase32
 module.exports.decodeBase32IgnorePadding = decodeBase32IgnorePadding
+module.exports.encodeBase64Standard = encodeBase64Standard
+module.exports.encodeBase64Url = encodeBase64Url
+module.exports.encodeBase64StandardNoPadding = encodeBase64StandardNoPadding
+module.exports.encodeBase64UrlNoPadding = encodeBase64UrlNoPadding
+module.exports.decodeBase64 = decodeBase64
+module.exports.decodeBase64IgnorePadding = decodeBase64IgnorePadding
 module.exports.decodeHex = decodeHex
 module.exports.encodeHexUpperCase = encodeHexUpperCase
 module.exports.encodeHexLowerCase = encodeHexLowerCase
