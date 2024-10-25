@@ -2,7 +2,6 @@
 
 A high-performance Node.js native addon for base encoding and decoding operations, built with NAPI-RS. This library provides fast, secure, and memory-efficient implementations for Base32, Base64, and Hex encoding/decoding operations.
 
-[![npm version](https://badge.fury.io/js/@dylo/encoding.svg)](https://badge.fury.io/js/@dylo/encoding)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
