@@ -310,8 +310,14 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-const { decodeHex, encodeHexUpperCase, encodeHexLowerCase } = nativeBinding
+const { encodeBase32Uppercase, encodeBase32Lowercase, encodeBase32LowercaseNoPadding, encodeBase32UppercaseNoPadding, decodeBase32, decodeBase32IgnorePadding, decodeHex, encodeHexUpperCase, encodeHexLowerCase } = nativeBinding
 
+module.exports.encodeBase32Uppercase = encodeBase32Uppercase
+module.exports.encodeBase32Lowercase = encodeBase32Lowercase
+module.exports.encodeBase32LowercaseNoPadding = encodeBase32LowercaseNoPadding
+module.exports.encodeBase32UppercaseNoPadding = encodeBase32UppercaseNoPadding
+module.exports.decodeBase32 = decodeBase32
+module.exports.decodeBase32IgnorePadding = decodeBase32IgnorePadding
 module.exports.decodeHex = decodeHex
 module.exports.encodeHexUpperCase = encodeHexUpperCase
 module.exports.encodeHexLowerCase = encodeHexLowerCase

@@ -1,10 +1,29 @@
 #![deny(clippy::all)]
 
+pub mod base32;
+pub mod hex;
+
 use std::collections::HashMap;
 #[macro_use]
 extern crate napi_derive;
 #[macro_use]
 extern crate lazy_static;
+
+const BASE32_UPPER: &[u8; 32] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+const BASE32_LOWER: &[u8; 32] = b"abcdefghijklmnopqrstuvwxyz234567";
+
+const PADDING: u8 = b'=';
+
+const DECODE_MAP: [i8; 256] = {
+  let mut map: [i8; 256] = [-1i8; 256];
+  let mut i: usize = 0;
+  while i < 32 {
+    map[BASE32_UPPER[i] as usize] = i as i8;
+    map[BASE32_LOWER[i] as usize] = i as i8;
+    i += 1;
+  }
+  map
+};
 
 lazy_static! {
   static ref HEX_TO_DEC: HashMap<char, u8> = {
@@ -24,52 +43,4 @@ lazy_static! {
 
     m
   };
-}
-
-#[napi]
-pub fn decode_hex(hex: String) -> Result<String, napi::Error> {
-  if hex.len() % 2 != 0 {
-    return Err(napi::Error::from_reason("Invalid hex string"));
-  }
-
-  let mut result: String = String::new();
-  let chars: Vec<char> = hex.chars().collect();
-
-  for i in (0..chars.len()).step_by(2) {
-    let high = HEX_TO_DEC
-      .get(&chars[i])
-      .ok_or_else(|| napi::Error::from_reason("Invalid hex digit"))?;
-    let low = HEX_TO_DEC
-      .get(&chars[i + 1])
-      .ok_or_else(|| napi::Error::from_reason("Invalid hex digit"))?;
-
-    let byte: u8 = (high << 4) | low;
-    result.push(byte as char);
-  }
-
-  Ok(result)
-}
-
-#[napi]
-pub fn encode_hex_upper_case(hex: String) -> String {
-  let mut result: String = String::new();
-  for c in hex.chars() {
-    result.push(match c {
-      'a'..='f' => (c as u8 - b'a' + b'A') as char,
-      _ => c,
-    });
-  }
-  result
-}
-
-#[napi]
-pub fn encode_hex_lower_case(hex: String) -> String {
-  let mut result: String = String::new();
-  for c in hex.chars() {
-    result.push(match c {
-      'A'..='F' => (c as u8 - b'A' + b'a') as char,
-      _ => c,
-    });
-  }
-  result
 }
